@@ -1,5 +1,5 @@
 """Build realestate.db from scratch and populate it with synthetic data.
-
+AI generation used for house blobs and sample data for efficiency. Opus 4.8
 Run:  python seed.py
 
 The data is hand-tuned so that every required query (a-g) returns an

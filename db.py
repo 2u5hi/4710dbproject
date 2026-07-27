@@ -1,9 +1,3 @@
-"""Data-access layer for the real-estate office database.
-
-All SQL lives here so the Tkinter layer (app.py) never builds queries itself.
-Each of the project's required queries (a-g) is a named function.
-"""
-
 import os
 import sqlite3
 
@@ -13,7 +7,6 @@ SCHEMA_PATH = os.path.join(BASE_DIR, "schema.sql")
 
 
 def get_connection(db_path=DB_PATH):
-    """Open a connection with foreign keys enforced and dict-like rows."""
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
@@ -21,17 +14,12 @@ def get_connection(db_path=DB_PATH):
 
 
 def init_schema(conn):
-    """Create all tables from schema.sql (drops any existing ones first)."""
     for table in ("sales", "properties", "buyers", "sellers", "agents"):
         conn.execute(f"DROP TABLE IF EXISTS {table}")
     with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
         conn.executescript(f.read())
     conn.commit()
 
-
-# ---------------------------------------------------------------------------
-# Required queries
-# ---------------------------------------------------------------------------
 
 # (a) Homes for sale in a given city within a price range.
 def homes_for_sale_by_city_price(conn, city, low_price, high_price):
@@ -120,7 +108,6 @@ def most_expensive_houses(conn):
 # (f) Record the sale of a property that was listed as available.
 def record_sale(conn, property_id, buyer_id, selling_agent_id,
                 buyer_agent_id, sale_price, sale_date):
-    """Insert a sales row. Raises ValueError if the property is already sold."""
     already = conn.execute(
         "SELECT 1 FROM sales WHERE property_id = ?", (property_id,)
     ).fetchone()
@@ -150,23 +137,14 @@ def add_agent(conn, name, phone, email):
     return cur.lastrowid
 
 
-# ---------------------------------------------------------------------------
-# Flexible property search used by the GUI.
-#
-# The required queries (a), (b) and (e) are just particular settings of this
-# one search, so the app performs them through the normal search UI:
+
 #   (a) city="Bethlehem", min/max price 200000/250000, status="for_sale"
 #   (b) district="Parkland", min_bedrooms=4, has_pool=False, status="for_sale"
 #   (e) sort results by price (desc) and open the top row to see its photo
-# ---------------------------------------------------------------------------
+
 def search_properties(conn, city=None, district=None, min_price=None,
                       max_price=None, min_bedrooms=None, has_pool=None,
                       status="for_sale"):
-    """Return property rows matching any combination of filters.
-
-    status: "for_sale" (no sale row), "sold" (has a sale row) or "all".
-    has_pool: None = don't care, True/False = must match.
-    """
     clauses, params = [], []
     if city:
         clauses.append("p.city = ?"); params.append(city)
@@ -200,7 +178,6 @@ def search_properties(conn, city=None, district=None, min_price=None,
 
 
 def get_property(conn, property_id):
-    """Full detail for one property, including photo BLOB and related names."""
     return conn.execute(
         """
         SELECT p.*,
@@ -219,9 +196,8 @@ def get_property(conn, property_id):
     ).fetchone()
 
 
-# ---------------------------------------------------------------------------
 # Lookup helpers used to populate the GUI's dropdowns / lists
-# ---------------------------------------------------------------------------
+
 
 def list_cities(conn):
     return [r[0] for r in conn.execute(

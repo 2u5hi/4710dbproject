@@ -1,21 +1,3 @@
-"""Tkinter front-end for the real-estate office database (CSE 241 Project 3).
-
-Run:  python app.py     (run  python seed.py  first if realestate.db is missing)
-
-The app is organised the way an office would use it, not by assignment query:
-
-  * Properties     - one flexible search over the listings.  The required
-                     queries (a) city/price, (b) district/beds/pool and
-                     (e) most-expensive-with-photo are performed here just by
-                     choosing filters and opening a row.
-  * Sales & Agents - record the sale of a listing (f) and view per-agent
-                     performance for a year (c = top agent, d = averages).
-  * Manage         - add a new agent (g).
-
-The GUI holds one open sqlite3 connection and calls functions in db.py; it
-never builds SQL itself.
-"""
-
 import io
 import os
 import tkinter as tk
@@ -31,7 +13,6 @@ def money(x):
 
 
 class ResultsTable(ttk.Frame):
-    """A sortable ttk.Treeview with a vertical scrollbar."""
 
     def __init__(self, master, columns, headings, widths=None, height=12,
                  on_open=None):
@@ -125,9 +106,9 @@ class RealEstateApp(tk.Tk):
         c = db.table_counts(self.conn)
         self.status.set("   ".join(f"{k}: {v}" for k, v in c.items()))
 
-    # ======================================================================
+
     # Properties  — flexible search (covers required queries a, b and e)
-    # ======================================================================
+
     def _tab_properties(self, master):
         f = ttk.Frame(master, padding=10)
 
@@ -294,9 +275,9 @@ class RealEstateApp(tk.Tk):
             row=1, column=0, columnspan=2, pady=(0, 10))
         win.grab_set()
 
-    # ======================================================================
+
     # Sales & Agents  — record a sale (f) + performance reports (c, d)
-    # ======================================================================
+  
     def _tab_sales_agents(self, master):
         f = ttk.Frame(master, padding=10)
 
@@ -444,9 +425,7 @@ class RealEstateApp(tk.Tk):
         self._run_property_search()   # the sold home leaves the for-sale list
         self._show_counts()
 
-    # ======================================================================
     # Manage  — add a new agent (g)
-    # ======================================================================
     def _tab_manage(self, master):
         f = ttk.Frame(master, padding=10)
         form = ttk.LabelFrame(f, text="Add a new agent", padding=8)
