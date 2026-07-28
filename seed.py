@@ -49,7 +49,7 @@ def seed():
         "INSERT INTO agents (name, phone, email) VALUES (?,?,?)", agents
     )
 
-    # -- sellers ------------------------------------------------------------
+    # sellers
     sellers = [
         ("Frank Gallagher",   "610-555-0201"),
         ("Walter White",    "610-555-0202"),
@@ -60,7 +60,7 @@ def seed():
     ]
     conn.executemany("INSERT INTO sellers (name, phone) VALUES (?,?)", sellers)
 
-    # -- buyers -------------------------------------------------------------
+    # buyers
     buyers = [
         ("Harry Potter",   "610-555-0301"),
         ("Miles Morales",    "610-555-0302"),
@@ -116,11 +116,11 @@ def seed():
         # Bob (agent 2) has the highest total value in 2004.
         (9,  1, 2, 4, 241000, "2004-04-20"),   # 14 River Rd, listed 2004-02-05
         (10, 2, 2, 5, 292000, "2004-03-30"),   # 60 Hill St,  listed 2004-01-15
-        # Alice (agent 1)
+        # Kevin (agent 1)
         (11, 3, 1, None, 201000, "2004-01-05"),# 8 Front St,  listed 2003-11-10
-        # Carol (agent 3)
+        # Phil (agent 3)
         (3,  4, 3, 2, 168000, "2004-08-01"),   # 9 Birch Ct,  listed 2004-06-15
-        # Dave (agent 4) - a 2003 sale, ignored by the 2004 queries
+        # Rick (agent 4) - a 2003 sale, ignored by the 2004 queries
         (8,  5, 4, 1, 255000, "2003-12-15"),   # 3 Elm St
     ]
     conn.executemany(
