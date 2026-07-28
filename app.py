@@ -302,7 +302,7 @@ class RealEstateApp(tk.Tk):
             height=7)
         self.rpt_table.pack(fill="both", expand=True, pady=(8, 0))
 
-        # ---- record a sale (bottom) --------------------------------------
+        #record a sale (bottom)
         sale = ttk.LabelFrame(f, text="Record a sale", padding=8)
         sale.pack(fill="x", pady=(10, 0))
         self._prop_map, self._buyer_map, self._agent_map = {}, {}, {}
