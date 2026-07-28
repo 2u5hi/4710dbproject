@@ -95,7 +95,7 @@ class RealEstateApp(tk.Tk):
         self._show_counts()
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
-    # -- housekeeping -------------------------------------------------------
+    #housekeeping
     def _on_close(self):
         try:
             self.conn.close()
@@ -107,7 +107,7 @@ class RealEstateApp(tk.Tk):
         self.status.set("   ".join(f"{k}: {v}" for k, v in c.items()))
 
 
-    # Properties  — flexible search (covers required queries a, b and e)
+    # Properties
 
     def _tab_properties(self, master):
         f = ttk.Frame(master, padding=10)
@@ -276,12 +276,12 @@ class RealEstateApp(tk.Tk):
         win.grab_set()
 
 
-    # Sales & Agents  — record a sale (f) + performance reports (c, d)
+    #Sales & Agents
   
     def _tab_sales_agents(self, master):
         f = ttk.Frame(master, padding=10)
 
-        # ---- performance reports (top) -----------------------------------
+        #performance reports
         rpt = ttk.LabelFrame(f, text="Agent performance", padding=8)
         rpt.pack(fill="both", expand=True)
 
@@ -425,7 +425,7 @@ class RealEstateApp(tk.Tk):
         self._run_property_search()   # the sold home leaves the for-sale list
         self._show_counts()
 
-    # Manage  — add a new agent (g)
+    #Manage
     def _tab_manage(self, master):
         f = ttk.Frame(master, padding=10)
         form = ttk.LabelFrame(f, text="Add a new agent", padding=8)
@@ -475,7 +475,7 @@ class RealEstateApp(tk.Tk):
         for e in (self.a_name, self.a_phone, self.a_email):
             e.delete(0, "end")
         self._refresh_agents()
-        self._reload_sale_choices()   # new agent becomes selectable in sales
+        self._reload_sale_choices()
         self._show_counts()
 
 
