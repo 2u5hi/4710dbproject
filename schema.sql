@@ -1,4 +1,4 @@
--- CSE 241 Database Systems - Project 3 (Real-Estate Office)
+-- Database Systems Real Estate Project
 -- Relational schema, implemented in SQLite.
 --
 -- Entity sets:  agents, sellers, buyers, properties
