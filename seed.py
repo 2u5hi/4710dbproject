@@ -12,9 +12,8 @@ import db
 from PIL import Image, ImageDraw
 
 
-# ---------------------------------------------------------------------------
-# Photo generation:  a small, simple house illustration -> PNG bytes (BLOB)
-# ---------------------------------------------------------------------------
+# Photo generation:  a small, simple house illustration, PNG bytes (BLOB)
+
 def make_house_png(wall_color, roof_color, sky_color=(135, 206, 235)):
     W, H = 320, 240
     img = Image.new("RGB", (W, H), sky_color)
@@ -38,13 +37,13 @@ def seed():
     conn = db.get_connection()
     db.init_schema(conn)
 
-    # -- agents -------------------------------------------------------------
+    # agents
     agents = [
         ("Kevin Nguyen",  "610-555-0101", "kevin@dnarealty.com"),
         ("Bob Saget",    "610-555-0102", "bob@dnarealty.com"),
-        ("Phil Dunphy",    "610-555-0103", "carol@dnarealty.com"),
-        ("Rick Sanchez",    "610-555-0104", "dave@dnarealty.com"),
-        ("Gill Thorpe",   "610-555-0105", "erin@dnarealty.com"),
+        ("Phil Dunphy",    "610-555-0103", "phil@dnarealty.com"),
+        ("Rick Sanchez",    "610-555-0104", "rick@dnarealty.com"),
+        ("Gil Thorpe",   "610-555-0105", "gil@dnarealty.com"),
     ]
     conn.executemany(
         "INSERT INTO agents (name, phone, email) VALUES (?,?,?)", agents
@@ -71,16 +70,16 @@ def seed():
     ]
     conn.executemany("INSERT INTO buyers (name, phone) VALUES (?,?)", buyers)
 
-    # -- photos (only a few houses; most expensive must have one) -----------
+    # photos (only a few houses; most expensive must have one)
     photo_mansion = make_house_png((225, 205, 160), (120, 40, 40))   # big/expensive
     photo_blue    = make_house_png((175, 200, 225), (60, 70, 110))
     photo_yellow  = make_house_png((240, 225, 150), (90, 110, 70))
 
-    # -- properties ---------------------------------------------------------
-    # columns: address, city, district, beds, baths, pool, price, list_date,
-    #          photo, seller_id, agent_id
+    #properties
+    #columns: address, city, district, beds, baths, pool, price, list_date,
+    # photo, seller_id, agent_id
     properties = [
-        # Bethlehem, in the 200k-250k band (query a hits these) - FOR SALE
+        # Bethlehem, in the 200k-250k  (query a hits these) - FOR SALE
         ("12 Maple St",     "Bethlehem", "Bethlehem Area", 3, 2.0, 0, 215000, "2004-03-10", None,          1, 1),
         ("48 Cedar Ave",    "Bethlehem", "Bethlehem Area", 4, 2.5, 0, 239000, "2004-05-02", photo_blue,    2, 2),
         # Bethlehem but outside the band (excluded from query a)
@@ -108,13 +107,13 @@ def seed():
         properties,
     )
 
-    # -- sales (mostly in 2004; drives queries c and d) ---------------------
+    # sales (mostly in 2004; drives queries c and d)
     # A property_id here is SOLD, so it drops out of the "for sale" queries.
     # property_ids: 1..11 in insertion order above.
     # columns: property_id, buyer_id, selling_agent_id, buyer_agent_id,
     #          sale_price, sale_date
     sales = [
-        # Bob (agent 2) racks up the highest total value in 2004.
+        # Bob (agent 2) has the highest total value in 2004.
         (9,  1, 2, 4, 241000, "2004-04-20"),   # 14 River Rd, listed 2004-02-05
         (10, 2, 2, 5, 292000, "2004-03-30"),   # 60 Hill St,  listed 2004-01-15
         # Alice (agent 1)
