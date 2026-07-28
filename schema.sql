@@ -1,14 +1,5 @@
--- CSE 241 Database Systems - Project 3 (Real-Estate Office)
--- Relational schema, implemented in SQLite.
---
--- Entity sets:  agents, sellers, buyers, properties
--- Relationship: sales  (a property is sold to a buyer, handled by agents)
-
 PRAGMA foreign_keys = ON;
 
--- ---------------------------------------------------------------------------
--- people
--- ---------------------------------------------------------------------------
 CREATE TABLE agents (
     agent_id INTEGER PRIMARY KEY,
     name     TEXT NOT NULL,
@@ -28,9 +19,7 @@ CREATE TABLE buyers (
     phone    TEXT
 );
 
--- ---------------------------------------------------------------------------
--- property
--- ---------------------------------------------------------------------------
+
 CREATE TABLE properties (
     property_id     INTEGER PRIMARY KEY,
     address         TEXT NOT NULL,
@@ -46,10 +35,6 @@ CREATE TABLE properties (
     agent_id        INTEGER NOT NULL REFERENCES agents(agent_id)   -- listing agent
 );
 
--- ---------------------------------------------------------------------------
--- transaction: a property is sold at most once (property_id is UNIQUE),
--- so a property that has no matching sales row is still "for sale".
--- ---------------------------------------------------------------------------
 CREATE TABLE sales (
     sale_id         INTEGER PRIMARY KEY,
     property_id     INTEGER NOT NULL UNIQUE REFERENCES properties(property_id),
@@ -60,7 +45,6 @@ CREATE TABLE sales (
     sale_date       TEXT NOT NULL           -- ISO 8601 'YYYY-MM-DD'
 );
 
--- Helpful indices for the required queries.
 CREATE INDEX idx_properties_city     ON properties(city);
 CREATE INDEX idx_properties_district ON properties(school_district);
 CREATE INDEX idx_sales_selling_agent ON sales(selling_agent_id);

@@ -70,7 +70,7 @@ class RealEstateApp(tk.Tk):
 
     def __init__(self):
         super().__init__()
-        self.title("Lehigh Valley Realty — Office Database")
+        self.title("DNA Realty — Office Database")
         self.geometry("880x620")
         self.minsize(760, 540)
 

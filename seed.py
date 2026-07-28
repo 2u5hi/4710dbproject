@@ -40,11 +40,11 @@ def seed():
 
     # -- agents -------------------------------------------------------------
     agents = [
-        ("Alice Nguyen",  "610-555-0101", "alice@valleyrealty.com"),
-        ("Bob Carter",    "610-555-0102", "bob@valleyrealty.com"),
-        ("Carol Diaz",    "610-555-0103", "carol@valleyrealty.com"),
-        ("Dave Ellis",    "610-555-0104", "dave@valleyrealty.com"),
-        ("Erin Foster",   "610-555-0105", "erin@valleyrealty.com"),
+        ("Kevin Nguyen",  "610-555-0101", "kevin@dnarealty.com"),
+        ("Bob Saget",    "610-555-0102", "bob@dnarealty.com"),
+        ("Phil Dunphy",    "610-555-0103", "carol@dnarealty.com"),
+        ("Rick Sanchez",    "610-555-0104", "dave@dnarealty.com"),
+        ("Gill Thorpe",   "610-555-0105", "erin@dnarealty.com"),
     ]
     conn.executemany(
         "INSERT INTO agents (name, phone, email) VALUES (?,?,?)", agents
@@ -52,22 +52,22 @@ def seed():
 
     # -- sellers ------------------------------------------------------------
     sellers = [
-        ("Frank Green",   "610-555-0201"),
-        ("Grace Hill",    "610-555-0202"),
-        ("Henry Irwin",   "610-555-0203"),
-        ("Iris Jones",    "610-555-0204"),
-        ("Jack Klein",    "610-555-0205"),
-        ("Karen Lopez",   "610-555-0206"),
+        ("Frank Gallagher",   "610-555-0201"),
+        ("Walter White",    "610-555-0202"),
+        ("Jesse Pinkman",   "610-555-0203"),
+        ("Jon Jones",    "610-555-0204"),
+        ("Calvin Klein",    "610-555-0205"),
+        ("Karen Black",   "610-555-0206"),
     ]
     conn.executemany("INSERT INTO sellers (name, phone) VALUES (?,?)", sellers)
 
     # -- buyers -------------------------------------------------------------
     buyers = [
-        ("Laura Mills",   "610-555-0301"),
-        ("Mike Novak",    "610-555-0302"),
-        ("Nina Ortiz",    "610-555-0303"),
-        ("Oscar Perez",   "610-555-0304"),
-        ("Paula Quinn",   "610-555-0305"),
+        ("Harry Potter",   "610-555-0301"),
+        ("Miles Morales",    "610-555-0302"),
+        ("Nina Dobrev",    "610-555-0303"),
+        ("Jeff Goldblum",   "610-555-0304"),
+        ("Peter Parker",   "610-555-0305"),
     ]
     conn.executemany("INSERT INTO buyers (name, phone) VALUES (?,?)", buyers)
 
